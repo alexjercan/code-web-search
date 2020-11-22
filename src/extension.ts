@@ -19,11 +19,8 @@ const getSelectedText = (): string | undefined => {
 const textToQuery = (text: string): string | undefined => {
   const config = vscode.workspace.getConfiguration("code-web-search");
   const queryTemplate = config.get<string>("QueryTemplate");
-  const searchEngine = config.get<string>("SearchEngine");
-  if (!queryTemplate || !searchEngine) return undefined;
-  return queryTemplate
-    .replace("%SELECTION%", encodeURI(text))
-    .replace("%ENGINE%", searchEngine);
+  if (!queryTemplate) return undefined;
+  return queryTemplate + encodeURI(text);
 };
 
 const webSearch = (query: string) => {

@@ -35,13 +35,8 @@
       "properties": {
         "code-web-search.QueryTemplate": {
           "type": "string",
-          "default": "https://www.%ENGINE%.com/search?q=%SELECTION%",
+          "default": "https://www.google.com/search?q=",
           "description": "Search Query"
-        },
-        "code-web-search.SearchEngine": {
-          "type": "string",
-          "default": "google",
-          "description": "Search Engine"
         }
       }
     }
