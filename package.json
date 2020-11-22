@@ -2,9 +2,20 @@
   "name": "code-web-search",
   "displayName": "Code Web Search",
   "description": "A vscode extension to search for solutions online",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "publisher": "alexjercan",
   "engines": {
     "vscode": "^1.51.0"
+  },
+  "author": {
+    "name": "Alex Jercan",
+    "url": "https://www.github.com/alexjercan"
+  },
+  "icon": "images/magnifier.png",
+  "homepage": "https://www.github.com/alexjercan/code-web-search",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/alexjercan/code-web-search"
   },
   "categories": [
     "Other"
