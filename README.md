@@ -23,5 +23,4 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of Code Web Search
-Added Selection Based Searc and TextBox Search
+Initial release of Code Web Search: Added Selection Based Search and TextBox Search
