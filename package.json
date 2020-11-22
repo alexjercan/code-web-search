@@ -34,7 +34,8 @@
       "type": "object",
       "properties": {
         "code-web-search.QueryTemplate": {
-          "type": "string",
+		  "type": "string",
+		  "enum": ["https://www.google.com/search?q=", "https://www.bing.com/search?q="],
           "default": "https://www.google.com/search?q=",
           "description": "Search Query"
         }
