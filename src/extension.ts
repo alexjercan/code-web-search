@@ -1,27 +1,57 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const CFG_SECTION = "code-web-search";
+const CFG_QUERY = "QueryTemplate";
+const CFG_ENGINE = "SearchEngine";
+
+const getSelectedText = (): string | undefined => {
+  const activeTextEditor = vscode.window.activeTextEditor;
+  if (!activeTextEditor) return undefined;
+
+  const documentText = activeTextEditor.document.getText();
+  if (!documentText) return undefined;
+
+  const activeSelection = activeTextEditor.selection;
+  if (!activeSelection || activeSelection.isEmpty) return undefined;
+
+  const start = activeTextEditor.document.offsetAt(activeSelection.start);
+  const end = activeTextEditor.document.offsetAt(activeSelection.end);
+
+  const selectedText = documentText.slice(start, end).trim();
+  return selectedText;
+};
+
+const textToQuery = (text: string): string | undefined => {
+  const config = vscode.workspace.getConfiguration(CFG_SECTION);
+  const queryTemplate = config.get<string>(CFG_QUERY);
+  const searchEngine = config.get<string>(CFG_ENGINE);
+  if (!queryTemplate || !searchEngine) return undefined;
+  return queryTemplate
+    .replace("%SELECTION%", encodeURI(text))
+    .replace("%ENGINE%", searchEngine);
+};
+
+const webSearch = (query: string) => {
+  vscode.commands.executeCommand("vscode.open", vscode.Uri.parse(query));
+};
+
+const search = () => {
+  const selectedText = getSelectedText();
+  if (!selectedText) return;
+
+  const query = textToQuery(selectedText);
+  if (!query) return;
+
+  webSearch(query);
+};
+
 export function activate(context: vscode.ExtensionContext) {
+  let disposable = vscode.commands.registerCommand(
+    "code-web-search.search",
+    search
+  );
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "code-web-search" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('code-web-search.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Code Web Search!');
-	});
-
-	context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
