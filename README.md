@@ -4,16 +4,16 @@ An extension to help searching the web directly from your code editor.
 
 ## Features
 When you right click a text selection you will be able to choose `Search The Web` to open a new browser page and search it.
-![Selection Based Search](images/feature-x.png)
+![Selection Based Search](images/selection-based-search.png)
 
 You can also run `Search The Web` from the command palette and input the query there.
-![TextBox Search](images/feature-x.png)
+![TextBox Search](images/textbox-search.gif)
 
 ## Extension Settings
 
 This extension contributes the following settings:
 
-* `code-web-search.QueryTemplate`: use this to set your query templaye (e.g. `"https://www.google.com/search?q="` sets the search engine to google)
+* `code-web-search.QueryTemplate`: use this to set your query template (e.g. `"https://www.google.com/search?q="` sets the search engine to google)
 
 ## Release Notes
 
