@@ -1,9 +1,5 @@
 import * as vscode from "vscode";
 
-const CFG_SECTION = "code-web-search";
-const CFG_QUERY = "QueryTemplate";
-const CFG_ENGINE = "SearchEngine";
-
 const getSelectedText = (): string | undefined => {
   const activeTextEditor = vscode.window.activeTextEditor;
   if (!activeTextEditor) return undefined;
@@ -17,14 +13,13 @@ const getSelectedText = (): string | undefined => {
   const start = activeTextEditor.document.offsetAt(activeSelection.start);
   const end = activeTextEditor.document.offsetAt(activeSelection.end);
 
-  const selectedText = documentText.slice(start, end).trim();
-  return selectedText;
+  return documentText.slice(start, end).trim();
 };
 
 const textToQuery = (text: string): string | undefined => {
-  const config = vscode.workspace.getConfiguration(CFG_SECTION);
-  const queryTemplate = config.get<string>(CFG_QUERY);
-  const searchEngine = config.get<string>(CFG_ENGINE);
+  const config = vscode.workspace.getConfiguration("code-web-search");
+  const queryTemplate = config.get<string>("QueryTemplate");
+  const searchEngine = config.get<string>("SearchEngine");
   if (!queryTemplate || !searchEngine) return undefined;
   return queryTemplate
     .replace("%SELECTION%", encodeURI(text))
