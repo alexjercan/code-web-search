@@ -35,11 +35,17 @@ const webSearch = (query: string) => {
   vscode.commands.executeCommand("vscode.open", vscode.Uri.parse(query));
 };
 
-const search = () => {
+const getText = async (): Promise<string | undefined> => {
   const selectedText = getSelectedText();
-  if (!selectedText) return;
+  if (!selectedText) return await vscode.window.showInputBox();
+  return selectedText;
+};
 
-  const query = textToQuery(selectedText);
+const search = async () => {
+  const text = await getText();
+  if (!text) return;
+
+  const query = textToQuery(text);
   if (!query) return;
 
   webSearch(query);
